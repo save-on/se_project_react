@@ -1,0 +1,47 @@
+.item-card {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+.item-card__suggestion {
+  font-size: 20px;
+  line-height: 24px;
+  margin: 40px 0 34px;
+}
+
+.item-card__container {
+  display: flex;
+}
+
+.item-card__list {
+  display: grid;
+  max-width: 100%;
+  grid-template-columns: repeat(auto-fit, 325px);
+  grid-gap: 20px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.item-card__card {
+  position: relative;
+  width: 325px;
+  height: 328px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.item-card__card-image {
+  background-position: center;
+  background-size: cover;
+}
+
+.item-card__card-text {
+  position: absolute;
+  top: 15px;
+  left: 125px;
+  background-color: #fff;
+  padding: 2px 12px;
+  border-radius: 4px;
+  margin: 0;
+}
