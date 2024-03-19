@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Cabinet Grotesk";
+  font-weight: 500;
+  line-height: 20px;
+  margin: 85px 0 0;
+}
+
+.footer__credit {
+  margin: 0;
+}
+
+.footer__year {
+  margin: 0;
+}
