@@ -1,0 +1,24 @@
+.cards {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+.cards__suggestion {
+  font-size: 20px;
+  line-height: 24px;
+  margin: 40px 0 34px;
+}
+
+.cards__container {
+  display: flex;
+}
+
+.cards__list {
+  display: grid;
+  max-width: 100%;
+  grid-template-columns: repeat(auto-fit, 325px);
+  grid-gap: 20px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
