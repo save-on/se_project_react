@@ -8,6 +8,7 @@
 
 .item-card__card-image {
   max-width: 100%;
+  cursor: pointer;
 }
 
 .item-card__card-text {

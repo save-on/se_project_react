@@ -1,6 +1,6 @@
 import "./ModalWithForm.css";
 
-function ModalWithForm({children, title, buttonText, activePopup, handleCloseClick}) {
+function ModalWithForm({children, title, buttonText, activePopup, onCloseClick}) {
   return (
     <div className= {`popup ${activePopup === 'add-clothes' && "popup-opened"}`}>
       <div className="popup__container">
@@ -9,10 +9,10 @@ function ModalWithForm({children, title, buttonText, activePopup, handleCloseCli
           className="popup__close-btn"
           type="button"
           aria-label="close button"
-          onClick={handleCloseClick}
+          onClick={onCloseClick}
         ></button>
         {/* don't forget to add noValidate to the form */}
-        <form className="popup__form" name="clothes-form">
+        <form className="popup__form" name={title}>
           {children}
           <button type="submit" className="popup__submit-btn">{buttonText}</button>
         </form>
