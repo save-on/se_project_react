@@ -1,23 +1,19 @@
 import "./ItemModal.css";
 
-function ItemModal({ activePopup, card, onCloseClick }) {
+function ItemModal({ activePopup, card, onCloseClick, title}) {
 
-  const handleOffPopupClose = (e) => {
-    if (e.target && document.querySelector('.popup')) {
-      onCloseClick()
+  const handleOnClick = (e) => {
+    if (e.target.classList.contains("popup")) {
+      onCloseClick();
     }
-    console.log(e.target)
-  }
-
-  const handleEscClose = (e) => {
-    if (e.key !== "Escape") {
-      onCloseClick()
-    }
-  }
+  };
 
   return (
-    <div className={`popup ${activePopup === "preview" && "popup-opened"}`} onMouseDown={handleOffPopupClose}>
-      <div className="popup__container popup__container_type_image" >
+    <div
+      className={`popup popup_type_${title} ${activePopup === "preview" && "popup-opened"}`}
+      onMouseDown={handleOnClick}
+    >
+      <div className="popup__container popup__container_type_image">
         <button
           className="popup__close-btn"
           type="button"

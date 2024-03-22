@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -9,28 +9,38 @@ import ItemModal from "../ItemModal/ItemModal";
 function App() {
   const [weatherData, setWeatherData] = useState({ type: "cold" });
   const [activePopup, setActiveModal] = useState("");
-  const [selectedCard, setSelectedCard] = useState({})
+  const [selectedCard, setSelectedCard] = useState({});
+
+  useEffect(() => {
+    activePopup !== ""
+      ? document.addEventListener("keydown", handleEscClick)
+      : document.removeEventListener("keydown", handleEscClick);
+  });
+
+  const handleEscClick = (e) => {
+    if (e.key === "Escape") {
+      closePopup();
+    }
+  };
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
-    setSelectedCard(card)
-  }
+    setSelectedCard(card);
+  };
 
   const handleAddClick = () => {
-    setActiveModal("add-clothes")
-  }
+    setActiveModal("add-clothes");
+  };
 
   const closePopup = () => {
-    setActiveModal('')
-  }
-
-  
+    setActiveModal("");
+  };
 
   return (
     <div className="app">
       <div className="app__content">
-        <Header onAddClick={handleAddClick}/>
-        <Main weatherData={weatherData} handleCardClick={handleCardClick}/>
+        <Header onAddClick={handleAddClick} />
+        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
       <ModalWithForm
@@ -79,7 +89,12 @@ function App() {
           </label>
         </fieldset>
       </ModalWithForm>
-      <ItemModal activePopup={activePopup} card={selectedCard} onCloseClick={closePopup}/>
+      <ItemModal
+        activePopup={activePopup}
+        card={selectedCard}
+        onCloseClick={closePopup}
+        title = "Item Popup"
+      />
     </div>
   );
 }

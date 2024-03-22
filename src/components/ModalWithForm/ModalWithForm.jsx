@@ -1,8 +1,23 @@
 import "./ModalWithForm.css";
 
-function ModalWithForm({children, title, buttonText, activePopup, onCloseClick}) {
+function ModalWithForm({
+  children,
+  title,
+  buttonText,
+  activePopup,
+  onCloseClick,
+}) {
+  const handleOnClick = (e) => {
+    if (e.target.classList.contains("popup")) {
+      onCloseClick();
+    }
+  };
+
   return (
-    <div className= {`popup ${activePopup === 'add-clothes' && "popup-opened"}`}>
+    <div
+      className={`popup popup_type_${title} ${activePopup === "add-clothes" && "popup-opened"}`}
+      onMouseDown={handleOnClick}
+    >
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
         <button
@@ -14,7 +29,9 @@ function ModalWithForm({children, title, buttonText, activePopup, onCloseClick})
         {/* don't forget to add noValidate to the form */}
         <form className="popup__form" name={title}>
           {children}
-          <button type="submit" className="popup__submit-btn">{buttonText}</button>
+          <button type="submit" className="popup__submit-btn">
+            {buttonText}
+          </button>
         </form>
       </div>
     </div>
