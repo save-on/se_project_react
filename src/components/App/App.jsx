@@ -56,10 +56,6 @@ function App() {
     setActiveModal("");
   };
 
-  const isOpen = (modalItem) => {
-    return activePopup === modalItem;
-  };
-
   return (
     <div className="app">
       <div className="app__content">
@@ -71,7 +67,7 @@ function App() {
         buttonText="Add Garment"
         title="New Garment"
         onCloseClick={closePopup}
-        isOpen={isOpen}
+        isOpen={activePopup === "add-clothes"}
       >
         <label htmlFor="add-clothes" className="popup__input-title">
           Name
@@ -132,7 +128,7 @@ function App() {
         card={selectedCard}
         onCloseClick={closePopup}
         title="Item Popup"
-        isOpen={isOpen}
+        isOpen={activePopup === "preview"}
       />
     </div>
   );

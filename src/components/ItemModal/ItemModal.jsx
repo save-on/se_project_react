@@ -10,7 +10,7 @@ function ItemModal({ card, onCloseClick, title, isOpen }) {
   return (
     <div
       className={`popup popup_type_${title} ${
-        isOpen("preview") && "popup_opened"
+        isOpen && "popup_opened"
       }`}
       onMouseDown={handleOnClick}
     >

@@ -15,7 +15,7 @@ function ModalWithForm({
 
   return (
     <div
-      className={`popup popup_type_${title} ${isOpen('add-clothes') && "popup_opened"}`}
+      className={`popup popup_type_${title} ${isOpen && "popup_opened"}`}
       onMouseDown={handleOnClick}
     >
       <div className="popup__container">
