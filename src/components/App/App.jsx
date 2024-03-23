@@ -28,16 +28,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    activePopup !== ""
-      ? document.addEventListener("keydown", handleEscClick)
-      : document.removeEventListener("keydown", handleEscClick);
-  });
+    if (!activePopup) return;
 
-  const handleEscClick = (e) => {
-    if (e.key === "Escape") {
-      closePopup();
-    }
-  };
+    const handleEscClick = (e) => {
+      if (e.key === "Escape") {
+        closePopup();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClick);
+    };
+  }, [activePopup]);
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -52,6 +56,10 @@ function App() {
     setActiveModal("");
   };
 
+  const isOpen = (modalItem) => {
+    return activePopup === modalItem;
+  };
+
   return (
     <div className="app">
       <div className="app__content">
@@ -62,8 +70,8 @@ function App() {
       <ModalWithForm
         buttonText="Add Garment"
         title="New Garment"
-        activePopup={activePopup}
         onCloseClick={closePopup}
+        isOpen={isOpen}
       >
         <label htmlFor="add-clothes" className="popup__input-title">
           Name
@@ -92,24 +100,39 @@ function App() {
             Select the weather type:
           </legend>
           <label className="popup__radio-container" htmlFor="hot">
-            <input className="popup__radio" type="radio" id="hot" />
+            <input
+              className="popup__radio"
+              type="radio"
+              id="hot"
+              name="weather-type"
+            />
             Hot
           </label>
           <label className="popup__radio-container" htmlFor="warm">
-            <input className="popup__radio" type="radio" id="warm" />
+            <input
+              className="popup__radio"
+              type="radio"
+              id="warm"
+              name="weather-type"
+            />
             Warm
           </label>
           <label className="popup__radio-container" htmlFor="cold">
-            <input className="popup__radio" type="radio" id="cold" />
+            <input
+              className="popup__radio"
+              type="radio"
+              id="cold"
+              name="weather-type"
+            />
             Cold
           </label>
         </fieldset>
       </ModalWithForm>
       <ItemModal
-        activePopup={activePopup}
         card={selectedCard}
         onCloseClick={closePopup}
         title="Item Popup"
+        isOpen={isOpen}
       />
     </div>
   );

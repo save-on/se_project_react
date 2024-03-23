@@ -4,8 +4,8 @@ function ModalWithForm({
   children,
   title,
   buttonText,
-  activePopup,
   onCloseClick,
+  isOpen
 }) {
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
@@ -15,7 +15,7 @@ function ModalWithForm({
 
   return (
     <div
-      className={`popup popup_type_${title} ${activePopup === "add-clothes" && "popup-opened"}`}
+      className={`popup popup_type_${title} ${isOpen('add-clothes') && "popup_opened"}`}
       onMouseDown={handleOnClick}
     >
       <div className="popup__container">
@@ -25,7 +25,7 @@ function ModalWithForm({
           type="button"
           aria-label="close button"
           onClick={onCloseClick}
-        ></button>
+        />
         {/* don't forget to add noValidate to the form */}
         <form className="popup__form" name={title}>
           {children}

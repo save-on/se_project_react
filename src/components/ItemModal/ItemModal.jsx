@@ -1,7 +1,6 @@
 import "./ItemModal.css";
 
-function ItemModal({ activePopup, card, onCloseClick, title}) {
-
+function ItemModal({ card, onCloseClick, title, isOpen }) {
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
       onCloseClick();
@@ -10,7 +9,9 @@ function ItemModal({ activePopup, card, onCloseClick, title}) {
 
   return (
     <div
-      className={`popup popup_type_${title} ${activePopup === "preview" && "popup-opened"}`}
+      className={`popup popup_type_${title} ${
+        isOpen("preview") && "popup_opened"
+      }`}
       onMouseDown={handleOnClick}
     >
       <div className="popup__container popup__container_type_image">
@@ -19,7 +20,7 @@ function ItemModal({ activePopup, card, onCloseClick, title}) {
           type="button"
           aria-label="close button"
           onClick={onCloseClick}
-        ></button>
+        />
         <img src={card.link} alt={card.name} className="popup__item-image" />
         <div className="popup__item-info">
           <p className="popup__item-caption">{card.name}</p>
