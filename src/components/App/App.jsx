@@ -1,5 +1,6 @@
 // Imports
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import Header from "../Header/Header";
@@ -81,7 +82,9 @@ function App() {
       >
         <div className="app__content">
           <Header onAddClick={handleAddClick} weatherData={weatherData} />
-          <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+          <Routes>
+            <Route path="/" element={<h1>hello</h1>} />
+          </Routes>
           <Footer />
         </div>
         <AddItemModal
