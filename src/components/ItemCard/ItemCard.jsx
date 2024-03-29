@@ -1,11 +1,15 @@
+// Imports
 import "./ItemCard.css";
 
+// Component
 function ItemCard({ item, onCardClick }) {
   
+  // Handles
   const handleCardClick = () => {
     onCardClick(item)
   }
 
+  // JSX
   return (
     <li className="item-card__card" key={item._id}>
       <img

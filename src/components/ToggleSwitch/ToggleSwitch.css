@@ -1,0 +1,50 @@
+.temp-switch {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.temp-switch__background {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 56px;
+  height: 28px;
+  background: #fff;
+  border: 2px solid #7e7e7e;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+}
+
+.temp-switch__slider {
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  background-color: #000;
+  top: 0;
+  border-radius: 50px;
+}
+
+.temp-switch__slider_F {
+  left: 0;
+  transition: 0.3s;
+}
+
+.temp-switch__slider_C {
+  left: 28px;
+  transition: 0.3s;
+}
+
+.temp-switch__option {
+  color: #000;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.temp-switch__option_active {
+  color: #fff;
+  opacity: 1;
+  z-index: 1;
+}
+

@@ -1,6 +1,10 @@
+// Imports
 import "./Footer.css";
 
+// Component
 function Footer() {
+
+  // JSX
   return (  
   <footer className="footer">
     <p className="footer__credit">Developed by save_on</p>

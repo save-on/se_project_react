@@ -1,17 +1,19 @@
+// Imports
 import "./ItemModal.css";
 
+// Components
 function ItemModal({ card, onCloseClick, title, isOpen }) {
+  // Handles
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
       onCloseClick();
     }
   };
 
+  // JSX
   return (
     <div
-      className={`popup popup_type_${title} ${
-        isOpen && "popup_opened"
-      }`}
+      className={`popup popup_type_${title} ${isOpen && "popup_opened"}`}
       onMouseDown={handleOnClick}
     >
       <div className="popup__container popup__container_type_image">

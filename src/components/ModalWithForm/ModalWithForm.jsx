@@ -1,5 +1,7 @@
-import "./ModalWithForm.css";
+// Imports
+import "./ModalWithForm.css"
 
+// Component
 function ModalWithForm({
   children,
   title,
@@ -7,6 +9,7 @@ function ModalWithForm({
   onCloseClick,
   isOpen
 }) {
+  // 
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
       onCloseClick();
