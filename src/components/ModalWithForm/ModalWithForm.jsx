@@ -7,7 +7,8 @@ function ModalWithForm({
   title,
   buttonText,
   onCloseClick,
-  isOpen
+  isOpen,
+  onSubmit
 }) {
   // 
   const handleOnClick = (e) => {
@@ -30,7 +31,7 @@ function ModalWithForm({
           onClick={onCloseClick}
         />
         {/* don't forget to add noValidate to the form */}
-        <form className="popup__form" name={title}>
+        <form className="popup__form" name={title} onSubmit={onSubmit}>
           {children}
           <button type="submit" className="popup__submit-btn">
             {buttonText}

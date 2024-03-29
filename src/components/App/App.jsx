@@ -67,6 +67,12 @@ function App() {
     setActiveModal("");
   };
 
+  const handleAddItemSubmit = (values) => {
+    // console.log(values)
+    // Will be connected with an api at some point
+    closePopup();
+  };
+
   // JSX
   return (
     <div className="app">
@@ -78,7 +84,11 @@ function App() {
           <Main weatherData={weatherData} handleCardClick={handleCardClick} />
           <Footer />
         </div>
-        <AddItemModal closePopup={closePopup} activePopup={activePopup}/>
+        <AddItemModal
+          closePopup={closePopup}
+          activePopup={activePopup}
+          onAddItem={handleAddItemSubmit}
+        />
         <ItemModal
           card={selectedCard}
           onCloseClick={closePopup}
