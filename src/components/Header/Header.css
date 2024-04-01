@@ -27,6 +27,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  transition: opacity 0.2s linear 0s;
 }
 
 .header__add-clothes-btn:hover {
