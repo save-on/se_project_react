@@ -93,7 +93,10 @@ function App() {
                 />
               }
             />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={<Profile handleCardClick={handleCardClick} />}
+            />
           </Routes>
           <Footer />
         </div>
@@ -102,6 +105,7 @@ function App() {
           activePopup={activePopup}
           onAddItem={handleAddItemSubmit}
         />
+        {/* todo fix modal bug */}
         <ItemModal
           card={selectedCard}
           onCloseClick={closePopup}

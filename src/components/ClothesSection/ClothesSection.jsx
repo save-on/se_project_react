@@ -4,7 +4,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
 
 // Component
-function ClothesSection() {
+function ClothesSection({ handleCardClick }) {
   // JSX
   return (
     <section className="clothes-section">
@@ -21,7 +21,7 @@ function ClothesSection() {
               <ItemCard
                 key={item._id}
                 item={item}
-                // onCardClick={handleCardClick}
+                onCardClick={handleCardClick}
               />
             );
           })}

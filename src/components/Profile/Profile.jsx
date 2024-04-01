@@ -4,13 +4,13 @@ import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 
 // Component
-function Profile() {
+function Profile({ handleCardClick }) {
 
   // JSX
   return (
     <main className="profile-content">
       <SideBar />
-      <ClothesSection />
+      <ClothesSection handleCardClick={handleCardClick}/>
     </main>
   )
 }
