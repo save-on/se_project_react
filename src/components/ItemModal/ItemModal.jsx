@@ -1,5 +1,5 @@
 // Imports
-import "./ItemModal.css";
+import "../../index.css"
 
 // Components
 function ItemModal({ card, onCloseClick, title, isOpen }) {
@@ -23,11 +23,12 @@ function ItemModal({ card, onCloseClick, title, isOpen }) {
           aria-label="close button"
           onClick={onCloseClick}
         />
-        <img src={card.link} alt={card.name} className="popup__item-image" />
+        <img src={card.imageUrl} alt={card.name} className="popup__item-image" />
         <div className="popup__item-info">
           <p className="popup__item-caption">{card.name}</p>
-          <p className="popup__temp-info">Weather: {card.weather}</p>
+          <p className="popup__item_temp-info">Weather: {card.weather}</p>
         </div>
+        <button type="button" className='popup__item-delete'>Delete item</button>
       </div>
     </div>
   );

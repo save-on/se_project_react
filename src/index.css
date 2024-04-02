@@ -1,2 +1,4 @@
 @import url("../src/vendor/normalize.css");
 @import url("../src/vendor/fonts.css");
+@import url("./components/ModalWithForm/ModalWithForm.css");
+@import url("./components/ItemModal/ItemModal.css");

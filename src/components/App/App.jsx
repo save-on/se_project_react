@@ -5,12 +5,13 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
+import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { coordinates, APIkey } from "../../utils/constants";
+import { coordinates, APIkey, baseUrl } from "../../utils/constants";
+import { getClothing, addClothing } from "../../utils/api";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 // Component
@@ -24,6 +25,7 @@ function App() {
   const [activePopup, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState([]);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -50,6 +52,12 @@ function App() {
     };
   }, [activePopup]);
 
+  useEffect(() => {
+    getClothing(baseUrl).then((data) => {
+      setClothingItems(data);
+    });
+  }, []);
+
   // handles
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -69,12 +77,11 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemSubmit = (values) => {
-    // console.log(values)
-    // Will be connected with an api at some point
+  const handleAddItemSubmit = (item) => {
+    addClothing(baseUrl, item);
+    setClothingItems([item, ...clothingItems]);
     closePopup();
   };
-
   // JSX
   return (
     <div className="app">
@@ -90,12 +97,18 @@ function App() {
                 <Main
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
                 />
               }
             />
             <Route
               path="/profile"
-              element={<Profile handleCardClick={handleCardClick} />}
+              element={
+                <Profile
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
           <Footer />

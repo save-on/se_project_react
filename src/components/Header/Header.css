@@ -15,7 +15,11 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  
+}
+
+.header__link {
+  text-decoration: none;
+  color: black;
 }
 
 .header__add-clothes-btn {
@@ -27,7 +31,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s linear 0s;
+  transition: opacity 0.15s linear 0s;
 }
 
 .header__add-clothes-btn:hover {
@@ -45,9 +49,19 @@
   font-size: 20px;
   line-height: 24px;
   margin: 0;
+  transition: opacity 0.15s linear 0s;
 }
 
 .header__user-avatar {
   height: 40px;
   width: 40px;
+  transition: transform 0.15s linear 0s;
+}
+
+.header__user-information:hover .header__user-name {
+  opacity: 0.6;
+}
+
+.header__user-information:hover .header__user-avatar {
+  transform: scale(1.05);
 }

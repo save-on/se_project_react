@@ -1,10 +1,9 @@
 // Imports
 import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
-import { defaultClothingItems } from "../../utils/constants";
 
 // Component
-function ClothesSection({ handleCardClick }) {
+function ClothesSection({ handleCardClick, clothingItems }) {
   // JSX
   return (
     <section className="clothes-section">
@@ -16,7 +15,7 @@ function ClothesSection({ handleCardClick }) {
       </div>
       <div className="clothes-section__container">
         <ul className="clothes-section__list">
-          {defaultClothingItems.map((item) => {
+          {clothingItems.map((item) => {
             return (
               <ItemCard
                 key={item._id}
@@ -24,7 +23,7 @@ function ClothesSection({ handleCardClick }) {
                 onCardClick={handleCardClick}
               />
             );
-          })}
+          }).reverse()}
         </ul>
       </div>
     </section>

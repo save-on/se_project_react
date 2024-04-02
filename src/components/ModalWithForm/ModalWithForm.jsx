@@ -1,5 +1,5 @@
 // Imports
-import "./ModalWithForm.css"
+import "../../index.css";
 
 // Component
 function ModalWithForm({
@@ -25,7 +25,7 @@ function ModalWithForm({
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
         <button
-          className="popup__close-btn"
+          className="popup__close-btn popup__close-btn_dark"
           type="button"
           aria-label="close button"
           onClick={onCloseClick}

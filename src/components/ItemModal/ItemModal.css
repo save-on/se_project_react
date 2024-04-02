@@ -14,6 +14,7 @@
 }
 
 .popup__item-info {
+  position: relative;
   margin: 20px 0 32px 32px;
 }
 
@@ -23,8 +24,26 @@
   line-height: 24px;
 }
 
-.popup__temp-info {
+.popup__item_temp-info {
   margin: 0;
   font-size: 20px;
   line-height: 24px;
+}
+
+.popup__item-delete {
+  position: absolute;
+  bottom: 68px;
+  right: 32px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #ff4d00;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  transition: opacity 0.15s linear 0s;
+}
+
+.popup__item-delete:hover {
+  opacity: 0.6;
 }

@@ -51,6 +51,13 @@
   width: 20px;
 }
 
+.popup__close-btn_dark {
+  background: transparent url(../../assets/close-dark.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .popup__input-title {
   margin: 0;
 }

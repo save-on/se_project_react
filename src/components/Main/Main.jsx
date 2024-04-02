@@ -2,12 +2,11 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import { defaultClothingItems } from "../../utils/constants";
 import { useContext } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 // Component
-function Main({ weatherData, handleCardClick }) {
+function Main({ weatherData, handleCardClick, clothingItems }) {
   
   // Hooks
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
@@ -26,7 +25,7 @@ function Main({ weatherData, handleCardClick }) {
         </p>
         <div className="cards__container">
           <ul className="cards__list">
-            {defaultClothingItems
+            {clothingItems
               .filter((item) => {
                 return item.weather === weatherData.type;
               })
@@ -38,7 +37,7 @@ function Main({ weatherData, handleCardClick }) {
                     onCardClick={handleCardClick}
                   />
                 );
-              })}
+              }).reverse()}
           </ul>
         </div>
       </section>
