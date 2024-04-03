@@ -101,30 +101,6 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
-    },
-    {
-      "name": "shoes",
-      "weather": "cold",
-      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D",
-      "_id": 17
-    },
-    {
-      "name": "shoes",
-      "weather": "cold",
-      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D",
-      "_id": 18
-    },
-    {
-      "name": "Shoes",
-      "weather": "cold",
-      "imageUrl": "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fHw%3D",
-      "_id": 19
-    },
-    {
-      "name": "Tank Top",
-      "weather": "hot",
-      "imageUrl": "https://images.unsplash.com/photo-1612198866625-88997d8fc3fb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dGFuayUyMHRvcHxlbnwwfHwwfHx8MA%3D%3D",
-      "_id": 20
     }
   ]
 }

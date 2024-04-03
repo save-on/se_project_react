@@ -11,7 +11,7 @@ import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { coordinates, APIkey, baseUrl } from "../../utils/constants";
-import { getClothing, addClothing } from "../../utils/api";
+import { getClothing, addClothing, deleteClothing } from "../../utils/api";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 // Component
@@ -78,10 +78,24 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
-    addClothing(baseUrl, item);
-    setClothingItems([item, ...clothingItems]);
-    closePopup();
+    addClothing(baseUrl, item)
+      .then(() => {
+        setClothingItems([item, ...clothingItems]);
+        closePopup();
+      })
+      .catch(console.error);
   };
+
+  const handleDelete = (card) => {
+    deleteClothing(baseUrl, card)
+      .then(() => {
+        const newClothingItems = clothingItems.filter((item) => item._id !== card._id)
+        setClothingItems(newClothingItems);
+        closePopup();
+      })
+      .catch(console.error);
+  };
+
   // JSX
   return (
     <div className="app">
@@ -118,12 +132,12 @@ function App() {
           activePopup={activePopup}
           onAddItem={handleAddItemSubmit}
         />
-        {/* todo fix modal bug */}
         <ItemModal
           card={selectedCard}
           onCloseClick={closePopup}
           title="Item Popup"
           isOpen={activePopup === "preview"}
+          handleDelete={handleDelete}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>

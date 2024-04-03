@@ -22,6 +22,8 @@ export const addClothing = (baseUrl, { name, imageUrl, weather }) => {
   });
 };
 
-export const deleteClothing = (baseUrl) => {
-  return serverRequest(`${baseUrl}/items/:`)
-}
+export const deleteClothing = (baseUrl, { _id }) => {
+  return serverRequest(`${baseUrl}/items/${_id}`, {
+    method: "DELETE",
+  });
+};
