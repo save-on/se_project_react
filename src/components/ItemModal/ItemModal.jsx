@@ -2,7 +2,7 @@
 import "../../index.css";
 
 // Components
-function ItemModal({ card, onCloseClick, title, isOpen, handleDelete }) {
+function ItemModal({ card, onCloseClick, title, isOpen, handleConfirmationClick}) {
   // Handles
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
@@ -33,9 +33,7 @@ function ItemModal({ card, onCloseClick, title, isOpen, handleDelete }) {
           <p className="popup__item_temp-info">Weather: {card.weather}</p>
         </div>
         <button
-          onClick={ ()=> {
-            handleDelete(card)
-          }}
+          onClick={handleConfirmationClick}
           type="button"
           className="popup__item-delete"
         >

@@ -7,7 +7,6 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 
 // Component
 function Main({ weatherData, handleCardClick, clothingItems }) {
-  
   // Hooks
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
@@ -35,9 +34,10 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
                     key={item._id}
                     item={item}
                     onCardClick={handleCardClick}
+                    // key={} // add unique value as a key
                   />
                 );
-              }).reverse()}
+              })}
           </ul>
         </div>
       </section>

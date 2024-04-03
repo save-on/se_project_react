@@ -7,6 +7,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
@@ -54,7 +55,7 @@ function App() {
 
   useEffect(() => {
     getClothing(baseUrl).then((data) => {
-      setClothingItems(data);
+      setClothingItems(data.reverse());
     });
   }, []);
 
@@ -69,8 +70,14 @@ function App() {
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
   };
 
+  // todo When you add on a new item it appears at the bottom and you can't delete it
+
   const handleAddClick = () => {
     setActiveModal("add-clothes");
+  };
+
+  const handleConfirmationClick = () => {
+    setActiveModal("confirmation");
   };
 
   const closePopup = () => {
@@ -86,10 +93,14 @@ function App() {
       .catch(console.error);
   };
 
+  console.log(clothingItems)
+
   const handleDelete = (card) => {
-    deleteClothing(baseUrl, card)
+    deleteClothing(baseUrl, card._id)
       .then(() => {
-        const newClothingItems = clothingItems.filter((item) => item._id !== card._id)
+        const newClothingItems = clothingItems.filter(
+          (item) => item._id !== card._id
+        );
         setClothingItems(newClothingItems);
         closePopup();
       })
@@ -135,9 +146,16 @@ function App() {
         <ItemModal
           card={selectedCard}
           onCloseClick={closePopup}
-          title="Item Popup"
+          title="image"
           isOpen={activePopup === "preview"}
-          handleDelete={handleDelete}
+          handleConfirmationClick={handleConfirmationClick}
+        />
+        <DeleteConfirmationModal
+          card={selectedCard}
+          isOpen={activePopup === "confirmation"}
+          title="confirmation"
+          onCloseClick={closePopup}
+          onDelete={handleDelete}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>

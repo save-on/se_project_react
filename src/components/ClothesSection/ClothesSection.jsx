@@ -23,7 +23,7 @@ function ClothesSection({ handleCardClick, clothingItems }) {
                 onCardClick={handleCardClick}
               />
             );
-          }).reverse()}
+          })}
         </ul>
       </div>
     </section>

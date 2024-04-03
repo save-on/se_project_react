@@ -22,8 +22,13 @@ export const addClothing = (baseUrl, { name, imageUrl, weather }) => {
   });
 };
 
-export const deleteClothing = (baseUrl, { _id }) => {
-  return serverRequest(`${baseUrl}/items/${_id}`, {
+export const deleteClothing = (baseUrl, id) => {
+  console.log(id)
+  return serverRequest(`${baseUrl}/items/${id}`, {
     method: "DELETE",
   });
 };
+
+
+// When new card is created it's not given an id for deleting
+// when created it gives me an id in the preview section although the payload doesn't have an id property
