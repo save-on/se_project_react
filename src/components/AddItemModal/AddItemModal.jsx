@@ -25,8 +25,17 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    onAddItem({name, imageUrl, weather})
+    e.preventDefault();
+    onAddItem({name, imageUrl, weather});
+    resetInputs();
+  }
+
+  const resetInputs = () => {
+    setName("")
+    setImageUrl("")
+    document.querySelectorAll(".popup__radio").forEach((radio) => {
+      radio.checked = false;
+    })
   }
 
   // JSX

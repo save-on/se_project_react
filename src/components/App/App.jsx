@@ -70,8 +70,6 @@ function App() {
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
   };
 
-  // todo When you add on a new item it appears at the bottom and you can't delete it
-
   const handleAddClick = () => {
     setActiveModal("add-clothes");
   };
@@ -86,14 +84,12 @@ function App() {
 
   const handleAddItemSubmit = (item) => {
     addClothing(baseUrl, item)
-      .then(() => {
-        setClothingItems([item, ...clothingItems]);
+      .then((res) => {
+        setClothingItems([res, ...clothingItems]);
         closePopup();
       })
       .catch(console.error);
   };
-
-  console.log(clothingItems)
 
   const handleDelete = (card) => {
     deleteClothing(baseUrl, card._id)
