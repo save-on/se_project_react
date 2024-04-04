@@ -1,15 +1,11 @@
-const serverRequest = (baseUrl, options) => {
-  return fetch(baseUrl, options).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-  );
-};
+import { processServerRequest } from "./weatherApi";
 
 export const getClothing = (baseUrl) => {
-  return serverRequest(`${baseUrl}/items`);
+  return processServerRequest(`${baseUrl}/items`);
 };
 
 export const addClothing = (baseUrl, { name, imageUrl, weather }) => {
-  return serverRequest(`${baseUrl}/items`, {
+  return processServerRequest(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -23,7 +19,7 @@ export const addClothing = (baseUrl, { name, imageUrl, weather }) => {
 };
 
 export const deleteClothing = (baseUrl, id) => {
-  return serverRequest(`${baseUrl}/items/${id}`, {
+  return processServerRequest(`${baseUrl}/items/${id}`, {
     method: "DELETE",
   });
 };

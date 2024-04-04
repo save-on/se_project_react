@@ -54,9 +54,11 @@ function App() {
   }, [activePopup]);
 
   useEffect(() => {
-    getClothing(baseUrl).then((data) => {
-      setClothingItems(data.reverse());
-    });
+    getClothing(baseUrl)
+      .then((data) => {
+        setClothingItems(data.reverse());
+      })
+      .catch(console.error);
   }, []);
 
   // handles
@@ -66,8 +68,7 @@ function App() {
   };
 
   const handleToggleSwitchChange = () => {
-    if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
-    if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
+    setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
   const handleAddClick = () => {

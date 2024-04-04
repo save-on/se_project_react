@@ -67,7 +67,7 @@ export const defaultWeatherOptions = {
     condition: "default day",
   },
   night: {
-    url: new URL("../assets/night-day.png", import.meta.url).href,
+    url: new URL("../assets/default-night.png", import.meta.url).href,
     condition: "default night",
   },
 };

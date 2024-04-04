@@ -5,7 +5,6 @@ import "./AddItemModal.css";
 
 // Component
 function AddItemModal({ closePopup, activePopup, onAddItem }) {
-
   // Hooks
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -14,29 +13,27 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
   // Functions
   const handleNameChange = (e) => {
     setName(e.target.value);
-  }
+  };
 
   const handleImageUrlChange = (e) => {
     setImageUrl(e.target.value);
-  }
+  };
 
   const handleWeatherChange = (e) => {
-    setWeather(e.target.id);
-  }
+    setWeather(e.target.value)
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({name, imageUrl, weather});
+    onAddItem({ name, imageUrl, weather });
     resetInputs();
-  }
+  };
 
   const resetInputs = () => {
-    setName("")
-    setImageUrl("")
-    document.querySelectorAll(".popup__radio").forEach((radio) => {
-      radio.checked = false;
-    })
-  }
+    setName("");
+    setImageUrl("");
+    setWeather("");
+  };
 
   // JSX
   return (
@@ -80,8 +77,10 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
         <label className="popup__radio-container" htmlFor="hot">
           <input
             className="popup__radio"
-            type="radio"
             id="hot"
+            type="radio"
+            value="hot"
+            checked={weather === "hot"}
             name="weather-type"
             onChange={handleWeatherChange}
           />
@@ -90,19 +89,22 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
         <label className="popup__radio-container" htmlFor="warm">
           <input
             className="popup__radio"
-            type="radio"
             id="warm"
+            type="radio"
+            value="warm"
+            checked={weather === "warm"}
             name="weather-type"
             onChange={handleWeatherChange}
-
           />
           Warm
         </label>
         <label className="popup__radio-container" htmlFor="cold">
           <input
             className="popup__radio"
-            type="radio"
             id="cold"
+            type="radio"
+            value="cold"
+            checked={weather === "cold"}
             name="weather-type"
             onChange={handleWeatherChange}
           />
