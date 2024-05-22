@@ -1,9 +1,42 @@
+import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 
-const LoginModal = () => {
+const LoginModal = ({ handleLogin, onCloseClick }) => {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const resetInputs = () => {
+    setData({
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(data);
+    // resetInputs();
+  };
+
   return (
-    <ModalWithForm title="Log In" buttonText="Log In" isOpen={false}>
+    <ModalWithForm
+      title="Log In"
+      buttonText="Log In"
+      isOpen={false}
+      onCloseClick={onCloseClick}
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="login-email" className="popup__input-title">
         Email
         <input
@@ -11,8 +44,9 @@ const LoginModal = () => {
           id="login-email"
           className="popup__input popup__input_type_login-email"
           placeholder="Email"
-          // value=""
-          // onChange={}
+          name="email"
+          value={data.email}
+          onChange={handleChange}
           required
         />
       </label>
@@ -23,8 +57,9 @@ const LoginModal = () => {
           id="login-password"
           className="popup__input popup__input_type_login-password"
           placeholder="Password"
-          // value=""
-          // onChange={}
+          name="password"
+          value={data.password}
+          onChange={handleChange}
           required
         />
       </label>

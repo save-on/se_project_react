@@ -37,7 +37,7 @@ const RegisterModal = ({ handleRegistration, onCloseClick }) => {
     <ModalWithForm
       title="Sign Up"
       buttonText="Sign Up"
-      isOpen={true}
+      isOpen={false}
       onSubmit={handleSubmit}
       onCloseClick={onCloseClick}
     >

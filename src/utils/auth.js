@@ -1,6 +1,6 @@
 import { processServerRequest } from "./weatherApi";
 
-export const signUp = (baseUrl, { email, password, name, avatarURL }) => {
+export const signUp = (baseUrl, { email, password, name, avatar }) => {
   return processServerRequest(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
@@ -11,7 +11,7 @@ export const signUp = (baseUrl, { email, password, name, avatarURL }) => {
       email,
       password,
       name,
-      avatarURL,
+      avatar,
     }),
   });
 };
@@ -24,5 +24,15 @@ export const signIn = (baseUrl, { email, password }) => {
       "content-type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+  });
+};
+
+export const getUserInfo = (baseUrl, token) => {
+  return processServerRequest(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
   });
 };

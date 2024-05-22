@@ -16,7 +16,8 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { coordinates, APIkey, baseUrl } from "../../utils/constants";
 import { getClothing, addClothing, deleteClothing } from "../../utils/api";
-import { signIn, signUp } from "../../utils/auth";
+import { getUserInfo, signIn, signUp } from "../../utils/auth";
+import { getToken, setToken } from "../../utils/token";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AppContext from "../../contexts/AppContext";
 
@@ -69,6 +70,17 @@ function App() {
     getClothing(baseUrl)
       .then((data) => {
         setClothingItems(data.reverse());
+        console.log(data);
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    const jwt = handleTokenCheck();
+    getUserInfo(baseUrl, jwt)
+      .then(() => {
+        setIsLoggedIn(true);
+        // setUserData() take info from request
       })
       .catch(console.error);
   }, []);
@@ -96,7 +108,8 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
-    addClothing(baseUrl, item)
+    const jwt = handleTokenCheck();
+    addClothing(baseUrl, item, jwt)
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
         closePopup();
@@ -105,7 +118,8 @@ function App() {
   };
 
   const handleDelete = (card) => {
-    deleteClothing(baseUrl, card._id)
+    const jwt = handleTokenCheck(); // add to all request except get Items and signup/signin
+    deleteClothing(baseUrl, card._id, jwt)
       .then(() => {
         const newClothingItems = clothingItems.filter(
           (item) => item._id !== card._id
@@ -119,10 +133,36 @@ function App() {
   const handleRegistration = (data) => {
     signUp(baseUrl, data)
       .then(() => {
-        setUserData(data);
         // close the popup
+        signIn(baseUrl, data)
+          .then(() => {
+            // setUserData(data); set user data
+            setIsLoggedIn(true);
+          })
+          .catch(console.error);
       })
       .catch(console.error);
+  };
+
+  const handleLogin = (data) => {
+    signIn(baseUrl, data)
+      .then((res) => {
+        // close the popup
+        if (res.token) {
+          setToken(res.token);
+          // setUserData(data);
+          setIsLoggedIn(true);
+        }
+      })
+      .catch(console.error);
+  };
+
+  const handleTokenCheck = () => {
+    const jwt = getToken();
+    if (!jwt) {
+      return;
+    }
+    return jwt;
   };
 
   // JSX
@@ -183,7 +223,7 @@ function App() {
           handleRegistration={handleRegistration}
           onCloseClick={closePopup}
         />
-        <LoginModal />
+        <LoginModal handleLogin={handleLogin} onCloseClick={closePopup} />
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );
