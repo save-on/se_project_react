@@ -7,13 +7,18 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { coordinates, APIkey, baseUrl } from "../../utils/constants";
 import { getClothing, addClothing, deleteClothing } from "../../utils/api";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import { signIn, signUp } from "../../utils/auth";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import AppContext from "../../contexts/AppContext";
 
 // Component
 function App() {
@@ -27,6 +32,13 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+    avatar: "",
+    name: "",
+  });
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -104,6 +116,15 @@ function App() {
       .catch(console.error);
   };
 
+  const handleRegistration = (data) => {
+    signUp(baseUrl, data)
+      .then(() => {
+        setUserData(data);
+        // close the popup
+      })
+      .catch(console.error);
+  };
+
   // JSX
   return (
     <div className="app">
@@ -112,27 +133,31 @@ function App() {
       >
         <div className="app__content">
           <Header onAddClick={handleAddClick} weatherData={weatherData} />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  weatherData={weatherData}
-                  handleCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                />
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <Profile
-                  handleCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                />
-              }
-            />
-          </Routes>
+          <AppContext.Provider value={isLoggedIn}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weatherData={weatherData}
+                    handleCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                  />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile
+                      handleCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </AppContext.Provider>
           <Footer />
         </div>
         <AddItemModal
@@ -154,6 +179,11 @@ function App() {
           onCloseClick={closePopup}
           onDelete={handleDelete}
         />
+        <RegisterModal
+          handleRegistration={handleRegistration}
+          onCloseClick={closePopup}
+        />
+        <LoginModal />
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );

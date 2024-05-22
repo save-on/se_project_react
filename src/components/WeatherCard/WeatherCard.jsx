@@ -2,7 +2,7 @@
 import "./WeatherCard.css";
 import { weatherOptions, defaultWeatherOptions } from "../../utils/constants";
 import { useContext } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 // Component
 function WeatherCard({ weatherData }) {
@@ -20,7 +20,8 @@ function WeatherCard({ weatherData }) {
   let weatherOption;
 
   filteredOption === undefined
-    ? (weatherOption = defaultWeatherOptions[weatherData.isDay ? "day" : "night"])
+    ? (weatherOption =
+        defaultWeatherOptions[weatherData.isDay ? "day" : "night"])
     : (weatherOption = filteredOption);
 
   // JSX

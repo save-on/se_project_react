@@ -8,9 +8,8 @@ function ModalWithForm({
   buttonText,
   onCloseClick,
   isOpen,
-  onSubmit
+  onSubmit,
 }) {
-  // 
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
       onCloseClick();
