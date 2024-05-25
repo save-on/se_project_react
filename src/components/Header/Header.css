@@ -55,6 +55,7 @@
 .header__user-avatar {
   height: 40px;
   width: 40px;
+  border-radius: 50px;
   transition: transform 0.15s linear 0s;
 }
 
@@ -64,4 +65,33 @@
 
 .header__user-information:hover .header__user-avatar {
   transform: scale(1.05);
+}
+
+.header__signup {
+  background: none;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 0;
+  margin: 0 20px;
+  transition: opacity 0.15s linear 0s;
+  cursor: pointer;
+}
+
+.header__signup:hover {
+  opacity: 0.6;
+}
+
+.header__signin {
+  background: none;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 0;
+  transition: opacity 0.15s linear 0s;
+  cursor: pointer;
+}
+
+.header__signin:hover {
+  opacity: 0.6;
 }

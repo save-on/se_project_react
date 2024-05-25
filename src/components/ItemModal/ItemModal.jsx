@@ -1,8 +1,22 @@
 // Imports
+import { useContext } from "react";
 import "../../index.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 // Components
-function ItemModal({ card, onCloseClick, title, isOpen, handleConfirmationClick}) {
+function ItemModal({
+  card,
+  onCloseClick,
+  title,
+  isOpen,
+  handleConfirmationClick,
+}) {
+  const { currentUser } = useContext(CurrentUserContext);
+  const isOwn = card.owner === currentUser._id;
+
+  const itemDeleteButtonClassName = `popup__item-delete ${
+    isOwn ? "popup__item-delete_visible" : "popup__item-delete_hidden"
+  }`;
   // Handles
   const handleOnClick = (e) => {
     if (e.target.classList.contains("popup")) {
@@ -35,7 +49,7 @@ function ItemModal({ card, onCloseClick, title, isOpen, handleConfirmationClick}
         <button
           onClick={handleConfirmationClick}
           type="button"
-          className="popup__item-delete"
+          className={itemDeleteButtonClassName}
         >
           Delete item
         </button>

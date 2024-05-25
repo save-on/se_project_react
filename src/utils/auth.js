@@ -36,3 +36,34 @@ export const getUserInfo = (baseUrl, token) => {
     },
   });
 };
+
+export const editUserInfo = (baseUrl, { name, avatar }, token) => {
+  return processServerRequest(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  });
+};
+
+export const addCardLike = (baseUrl, _id, token) => {
+  return processServerRequest(`${baseUrl}/items/${_id}/likes`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const removeCardLike = (baseUrl, _id, token) => {
+  return processServerRequest(`${baseUrl}/items/${_id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

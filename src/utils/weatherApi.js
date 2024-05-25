@@ -17,7 +17,7 @@ export const filterWeatherData = (data) => {
     F: `${Math.round(data.main.temp)}°F`,
     C: `${tempConversion(data.main.temp)}°C`,
   };
-  result.type = setWeatherType(result.temp.F);
+  result.type = setWeatherType(data.main.temp);
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys, Date.now());
   return result;
@@ -28,9 +28,9 @@ const isDay = ({ sunrise, sunset }, now) => {
 };
 
 const setWeatherType = (temp) => {
-  if (temp > 86) {
+  if (temp >= 86) {
     return "hot";
-  } else if (temp >= 66 && temp < 86) {
+  } else if (temp < 86 && temp >= 66) {
     return "warm";
   } else {
     return "cold";

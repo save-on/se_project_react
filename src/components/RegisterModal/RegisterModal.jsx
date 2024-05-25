@@ -2,7 +2,12 @@ import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 
-const RegisterModal = ({ handleRegistration, onCloseClick }) => {
+const RegisterModal = ({
+  handleRegistration,
+  onSignInClick,
+  onCloseClick,
+  activePopup,
+}) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -37,7 +42,7 @@ const RegisterModal = ({ handleRegistration, onCloseClick }) => {
     <ModalWithForm
       title="Sign Up"
       buttonText="Sign Up"
-      isOpen={false}
+      isOpen={activePopup === "sign-up"}
       onSubmit={handleSubmit}
       onCloseClick={onCloseClick}
     >
@@ -95,7 +100,9 @@ const RegisterModal = ({ handleRegistration, onCloseClick }) => {
       </label>
       <div className="popup__signup">
         <p className="popup__signup-text">or</p>
-        <button className="popup__btn">Log In</button>
+        <button className="popup__btn" onClick={onSignInClick}>
+          Log In
+        </button>
       </div>
     </ModalWithForm>
   );

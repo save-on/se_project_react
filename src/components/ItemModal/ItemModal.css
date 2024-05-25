@@ -47,3 +47,11 @@
 .popup__item-delete:hover {
   opacity: 0.6;
 }
+
+.popup__item-delete_visible {
+  visibility: visible;
+}
+
+.popup__item-delete_hidden {
+  visibility: hidden;
+}

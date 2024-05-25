@@ -13,13 +13,33 @@
   cursor: pointer;
 }
 
-.item-card__card-text {
+.item-card__title-container {
   position: absolute;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   top: 15px;
-  left: 125px;
+}
+
+.item-card__card-text {
   background-color: #fff;
   opacity: 0.6;
   padding: 2px 12px;
   border-radius: 4px;
   margin: 0;
+}
+
+.item-card__like-btn {
+  object-fit: contain;
+  object-position: center;
+}
+
+.item-card__like-btn_visible {
+  visibility: visible;
+}
+
+.item-card__like-btn_hidden {
+  visibility: hidden;
 }

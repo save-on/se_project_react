@@ -1,13 +1,26 @@
 // Imports
 import "./ItemCard.css";
+import unLiked from "../../assets/State=Default.png";
+import Liked from "../../assets/State=Liked.png";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 // Component
-function ItemCard({ item, onCardClick }) {
-  
+function ItemCard({ item, onCardClick, onCardLike }) {
+  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+  const isLiked = item.likes.some((id) => id === currentUser._id);
+  const likeBtnClassName = `item-card__like-btn ${
+    isLoggedIn ? "item-card__like-btn_visible" : "item-card__like-btn_hidden"
+  }`;
+
   // Handles
   const handleCardClick = () => {
-    onCardClick(item)
-  }
+    onCardClick(item);
+  };
+
+  const handleCardLike = () => {
+    onCardLike(item, isLiked);
+  };
 
   // JSX
   return (
@@ -18,7 +31,15 @@ function ItemCard({ item, onCardClick }) {
         src={item.imageUrl}
         alt={item.name}
       />
-      <p className="item-card__card-text">{item.name}</p>
+      <div className="item-card__title-container">
+        <p className="item-card__card-text">{item.name}</p>
+        <img
+          src={isLiked ? unLiked : Liked}
+          alt="like button"
+          className={likeBtnClassName}
+          onClick={handleCardLike}
+        />
+      </div>
     </li>
   );
 }

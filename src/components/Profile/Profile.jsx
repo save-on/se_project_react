@@ -4,15 +4,29 @@ import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 
 // Component
-function Profile({ handleCardClick, clothingItems }) {
-
+function Profile({
+  handleCardClick,
+  clothingItems,
+  handleAddClick,
+  handleEditProfileClick,
+  handleSignOut,
+  handleCardLike,
+}) {
   // JSX
   return (
     <main className="profile-content">
-      <SideBar />
-      <ClothesSection handleCardClick={handleCardClick} clothingItems={clothingItems}/>
+      <SideBar
+        onEditProfileClick={handleEditProfileClick}
+        onSignOutClick={handleSignOut}
+      />
+      <ClothesSection
+        handleCardClick={handleCardClick}
+        clothingItems={clothingItems}
+        onAddClick={handleAddClick}
+        handleCardLike={handleCardLike}
+      />
     </main>
-  )
+  );
 }
 
 export default Profile;

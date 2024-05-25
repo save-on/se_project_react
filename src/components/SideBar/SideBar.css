@@ -12,6 +12,7 @@
   width: 56px;
   height: 56px;
   margin: 0 16px 0 0;
+  border-radius: 50px;
 }
 
 .sidebar__name {
@@ -20,4 +21,33 @@
   font-weight: 700;
   white-space: nowrap;
   margin: 0;
+}
+
+.sidebar__edit-profile {
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 24px 0 8px;
+  transition: opacity 0.15s linear 0s;
+  cursor: pointer;
+}
+
+.sidebar__edit-profile:hover {
+  opacity: 0.6;
+}
+
+.sidebar__signout {
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 700;
+  font-size: 20px;
+  transition: opacity 0.15s linear 0s;
+  cursor: pointer;
+}
+
+.sidebar__signout:hover {
+  opacity: 0.6;
 }

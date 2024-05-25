@@ -2,7 +2,12 @@ import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 
-const LoginModal = ({ handleLogin, onCloseClick }) => {
+const LoginModal = ({
+  handleLogin,
+  onSignUpClick,
+  onCloseClick,
+  activePopup,
+}) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -16,24 +21,16 @@ const LoginModal = ({ handleLogin, onCloseClick }) => {
     }));
   };
 
-  const resetInputs = () => {
-    setData({
-      email: "",
-      password: "",
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(data);
-    // resetInputs();
   };
 
   return (
     <ModalWithForm
       title="Log In"
       buttonText="Log In"
-      isOpen={false}
+      isOpen={activePopup === "sign-in"}
       onCloseClick={onCloseClick}
       onSubmit={handleSubmit}
     >
@@ -65,7 +62,9 @@ const LoginModal = ({ handleLogin, onCloseClick }) => {
       </label>
       <div className="popup__signup">
         <p className="popup__signup-text">or</p>
-        <button className="popup__btn">Sign Up</button>
+        <button className="popup__btn" onClick={onSignUpClick}>
+          Sign Up
+        </button>
       </div>
     </ModalWithForm>
   );
