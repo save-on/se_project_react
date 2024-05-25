@@ -1,13 +1,17 @@
+// Imports
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./EditProfileModal.css";
 
+// Component
 const EditProfileModal = ({ handleEditProfile, onCloseClick, activePopup }) => {
+  // Hooks
   const [data, setData] = useState({
     name: "",
     avatar: "",
   });
 
+  // Handles
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -16,11 +20,20 @@ const EditProfileModal = ({ handleEditProfile, onCloseClick, activePopup }) => {
     }));
   };
 
+  const handleResetInputs = () => {
+    setData({
+      name: "",
+      avatar: "",
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEditProfile(data);
+    handleResetInputs;
   };
 
+  // JSX
   return (
     <ModalWithForm
       title="Change profile data"

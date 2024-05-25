@@ -16,7 +16,9 @@ const currentDate = new Date().toLocaleString("default", {
 
 // Component
 function Header({ onAddClick, onSignInClick, onSignUpClick, weatherData }) {
+  // Hook
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+
   // JSX
   return (
     <header className="header">

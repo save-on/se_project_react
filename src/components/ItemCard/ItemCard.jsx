@@ -7,7 +7,9 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 // Component
 function ItemCard({ item, onCardClick, onCardLike }) {
+  // Hooks
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+  // Constants
   const isLiked = item.likes.some((id) => id === currentUser._id);
   const likeBtnClassName = `item-card__like-btn ${
     isLoggedIn ? "item-card__like-btn_visible" : "item-card__like-btn_hidden"
@@ -34,7 +36,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
       <div className="item-card__title-container">
         <p className="item-card__card-text">{item.name}</p>
         <img
-          src={isLiked ? unLiked : Liked}
+          src={isLiked ? Liked : unLiked}
           alt="like button"
           className={likeBtnClassName}
           onClick={handleCardLike}

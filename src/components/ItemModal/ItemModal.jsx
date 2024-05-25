@@ -11,7 +11,9 @@ function ItemModal({
   isOpen,
   handleConfirmationClick,
 }) {
+  // Hooks
   const { currentUser } = useContext(CurrentUserContext);
+  // Constants
   const isOwn = card.owner === currentUser._id;
 
   const itemDeleteButtonClassName = `popup__item-delete ${

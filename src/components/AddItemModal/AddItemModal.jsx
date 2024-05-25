@@ -10,7 +10,7 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
 
-  // Functions
+  // Handles
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -20,16 +20,16 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
   };
 
   const handleWeatherChange = (e) => {
-    setWeather(e.target.value)
+    setWeather(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem({ name, imageUrl, weather });
-    resetInputs();
+    handleResetInputs();
   };
 
-  const resetInputs = () => {
+  const handleResetInputs = () => {
     setName("");
     setImageUrl("");
     setWeather("");

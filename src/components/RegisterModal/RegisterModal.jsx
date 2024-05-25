@@ -23,7 +23,7 @@ const RegisterModal = ({
     }));
   };
 
-  const resetInputs = () => {
+  const handleResetInputs = () => {
     setData({
       email: "",
       password: "",
@@ -35,7 +35,7 @@ const RegisterModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegistration(data);
-    // resetInputs();
+    handleResetInputs();
   };
 
   return (

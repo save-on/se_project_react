@@ -11,6 +11,7 @@ function ClothesSection({
   onAddClick,
   handleCardLike,
 }) {
+  // Hooks
   const { currentUser } = useContext(CurrentUserContext);
   // JSX
   return (

@@ -9,11 +9,11 @@ function DeleteConfirmationModal({
   onCloseClick,
   onDelete,
 }) {
-
+  // Handles
   const handleDelete = () => {
-    onDelete(card)
-  }
-  
+    onDelete(card);
+  };
+
   // JSX
   return (
     <div className={`popup popup_type_${title} ${isOpen && "popup_opened"}`}>

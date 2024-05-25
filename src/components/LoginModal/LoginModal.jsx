@@ -21,9 +21,17 @@ const LoginModal = ({
     }));
   };
 
+  const handleResetInputs = () => {
+    setData({
+      email: "",
+      password: "",
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(data);
+    handleResetInputs();
   };
 
   return (

@@ -1,6 +1,6 @@
 // Imports
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import Header from "../Header/Header";
@@ -48,6 +48,9 @@ function App() {
     _id: "",
   });
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -92,6 +95,8 @@ function App() {
             avatar,
             _id,
           });
+          const redirectPath = location.state?.from?.pathname;
+          navigate(redirectPath);
         })
         .catch(console.error);
     }
@@ -326,9 +331,3 @@ function App() {
 }
 
 export default App;
-
-// Todo
-/*
-  - Add so that the location they left on is the location they come back 
-  to after a page refresh
- */
