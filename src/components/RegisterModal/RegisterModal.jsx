@@ -1,7 +1,7 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 import { useForm } from "../../hooks/useForm";
-import { handleTokenCheck, setToken } from "../../utils/token";
+import { setToken } from "../../utils/token";
 import { signIn, signUp } from "../../utils/auth";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
