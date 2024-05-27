@@ -1,10 +1,11 @@
 import { processServerRequest } from "./weatherApi";
+import { baseUrl } from "./constants";
 
-export const getClothing = (baseUrl) => {
+export const getClothing = () => {
   return processServerRequest(`${baseUrl}/items`);
 };
 
-export const addClothing = (baseUrl, { name, imageUrl, weather }, token) => {
+export const addClothing = ({ name, imageUrl, weather }, token) => {
   return processServerRequest(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -19,7 +20,7 @@ export const addClothing = (baseUrl, { name, imageUrl, weather }, token) => {
   });
 };
 
-export const deleteClothing = (baseUrl, id, token) => {
+export const deleteClothing = (id, token) => {
   return processServerRequest(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {

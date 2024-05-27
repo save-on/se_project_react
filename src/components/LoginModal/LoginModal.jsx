@@ -31,7 +31,6 @@ const LoginModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(data);
-    handleResetInputs();
   };
 
   return (
@@ -70,7 +69,7 @@ const LoginModal = ({
       </label>
       <div className="popup__signup">
         <p className="popup__signup-text">or</p>
-        <button className="popup__btn" onClick={onSignUpClick}>
+        <button className="popup__btn" type="button" onClick={onSignUpClick}>
           Sign Up
         </button>
       </div>

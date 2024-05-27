@@ -100,7 +100,7 @@ const RegisterModal = ({
       </label>
       <div className="popup__signup">
         <p className="popup__signup-text">or</p>
-        <button className="popup__btn" onClick={onSignInClick}>
+        <button className="popup__btn" type="button" onClick={onSignInClick}>
           Log In
         </button>
       </div>

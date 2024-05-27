@@ -14,7 +14,7 @@ import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { coordinates, APIkey, baseUrl } from "../../utils/constants";
+import { coordinates, APIkey } from "../../utils/constants";
 import { getClothing, addClothing, deleteClothing } from "../../utils/api";
 import {
   addCardLike,
@@ -77,7 +77,7 @@ function App() {
   }, [activePopup]);
 
   useEffect(() => {
-    getClothing(baseUrl)
+    getClothing()
       .then((data) => {
         setClothingItems(data.reverse());
       })
@@ -87,14 +87,10 @@ function App() {
   useEffect(() => {
     const jwt = handleTokenCheck();
     if (jwt) {
-      getUserInfo(baseUrl, jwt)
-        .then(({ name, avatar, _id }) => {
+      getUserInfo(jwt)
+        .then((res) => {
           setIsLoggedIn(true);
-          setCurrentUser({
-            name,
-            avatar,
-            _id,
-          });
+          setCurrentUser(res);
           const redirectPath = location.state?.from?.pathname;
           navigate(redirectPath);
         })
@@ -138,7 +134,7 @@ function App() {
 
   const handleAddItemSubmit = (item) => {
     const jwt = handleTokenCheck();
-    addClothing(baseUrl, item, jwt)
+    addClothing(item, jwt)
       .then((res) => {
         setClothingItems([res.data, ...clothingItems]);
         closePopup();
@@ -148,7 +144,7 @@ function App() {
 
   const handleDelete = (card) => {
     const jwt = handleTokenCheck();
-    deleteClothing(baseUrl, card._id, jwt)
+    deleteClothing(card._id, jwt)
       .then(() => {
         const newClothingItems = clothingItems.filter(
           (item) => item._id !== card._id
@@ -160,9 +156,9 @@ function App() {
   };
 
   const handleRegistration = (data) => {
-    signUp(baseUrl, data)
+    signUp(data)
       .then(() => {
-        signIn(baseUrl, data)
+        signIn(data)
           .then(({ token, name, avatar, _id }) => {
             if (token) {
               setToken(token);
@@ -181,7 +177,7 @@ function App() {
   };
 
   const handleLogin = (data) => {
-    signIn(baseUrl, data)
+    signIn(data)
       .then(({ token, name, avatar, _id }) => {
         if (token) {
           setToken(token);
@@ -205,7 +201,7 @@ function App() {
 
   const handleEditProfile = (data) => {
     const jwt = handleTokenCheck();
-    editUserInfo(baseUrl, data, jwt)
+    editUserInfo(data, jwt)
       .then(({ name, avatar, _id }) => {
         setCurrentUser({
           name,
@@ -220,14 +216,14 @@ function App() {
   const handleCardLike = ({ _id }, isLiked) => {
     const jwt = handleTokenCheck();
     !isLiked
-      ? addCardLike(baseUrl, _id, jwt)
+      ? addCardLike(_id, jwt)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === _id ? updatedCard : item))
             );
           })
           .catch(console.error)
-      : removeCardLike(baseUrl, _id, jwt)
+      : removeCardLike(_id, jwt)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === _id ? updatedCard : item))
@@ -331,3 +327,9 @@ function App() {
 }
 
 export default App;
+
+/*
+  Todo
+    - You left off on the reset portion of the review
+    - Figure out how to get useForm to work
+*/

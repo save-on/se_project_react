@@ -10,7 +10,7 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
 
-  // Handles
+  // Functions
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -26,10 +26,10 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem({ name, imageUrl, weather });
-    handleResetInputs();
+    resetInputs();
   };
 
-  const handleResetInputs = () => {
+  const resetInputs = () => {
     setName("");
     setImageUrl("");
     setWeather("");

@@ -1,6 +1,7 @@
 import { processServerRequest } from "./weatherApi";
+import { baseUrl } from "./constants";
 
-export const signUp = (baseUrl, { email, password, name, avatar }) => {
+export const signUp = ({ email, password, name, avatar }) => {
   return processServerRequest(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
@@ -16,7 +17,7 @@ export const signUp = (baseUrl, { email, password, name, avatar }) => {
   });
 };
 
-export const signIn = (baseUrl, { email, password }) => {
+export const signIn = ({ email, password }) => {
   return processServerRequest(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
@@ -27,7 +28,7 @@ export const signIn = (baseUrl, { email, password }) => {
   });
 };
 
-export const getUserInfo = (baseUrl, token) => {
+export const getUserInfo = (token) => {
   return processServerRequest(`${baseUrl}/users/me`, {
     method: "GET",
     headers: {
@@ -37,7 +38,7 @@ export const getUserInfo = (baseUrl, token) => {
   });
 };
 
-export const editUserInfo = (baseUrl, { name, avatar }, token) => {
+export const editUserInfo = ({ name, avatar }, token) => {
   return processServerRequest(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
@@ -48,7 +49,7 @@ export const editUserInfo = (baseUrl, { name, avatar }, token) => {
   });
 };
 
-export const addCardLike = (baseUrl, _id, token) => {
+export const addCardLike = (_id, token) => {
   return processServerRequest(`${baseUrl}/items/${_id}/likes`, {
     method: "PUT",
     headers: {
@@ -58,7 +59,7 @@ export const addCardLike = (baseUrl, _id, token) => {
   });
 };
 
-export const removeCardLike = (baseUrl, _id, token) => {
+export const removeCardLike = (_id, token) => {
   return processServerRequest(`${baseUrl}/items/${_id}/likes`, {
     method: "DELETE",
     headers: {
