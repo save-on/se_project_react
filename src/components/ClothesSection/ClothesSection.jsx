@@ -3,16 +3,13 @@ import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import ClothingItemsContext from "../../contexts/ClothingItemsContext";
 
 // Component
-function ClothesSection({
-  handleCardClick,
-  clothingItems,
-  onAddClick,
-  handleCardLike,
-}) {
+function ClothesSection({ handleCardClick, onAddClick, handleCardLike }) {
   // Hooks
   const { currentUser } = useContext(CurrentUserContext);
+  const { clothingItems } = useContext(ClothingItemsContext);
   // JSX
   return (
     <section className="clothes-section">

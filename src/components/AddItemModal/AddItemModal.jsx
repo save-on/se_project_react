@@ -1,21 +1,40 @@
 // Imports
-import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./AddItemModal.css";
 import { useForm } from "../../hooks/useForm";
+import { addClothing } from "../../utils/api";
+import { handleTokenCheck } from "../../utils/token";
+import ClothingItemsContext from "../../contexts/ClothingItemsContext";
+import { useContext } from "react";
 
 // Component
-function AddItemModal({ closePopup, activePopup, onAddItem, isLoading }) {
+function AddItemModal({ closePopup, activePopup, handleSubmit, isLoading }) {
   // Hooks
-  const { values, handleChanges } = useForm({
+  const { clothingItems, setClothingItems } = useContext(ClothingItemsContext);
+  const { values, handleChanges, setValues } = useForm({
     imageUrl: "",
     weather: "",
     name: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleInputReset = () => {
+    setValues({
+      imageUrl: "",
+      weather: "",
+      name: "",
+    });
+  };
+
+  const handleAddItem = (e) => {
     e.preventDefault();
-    onAddItem(values);
+    const jwt = handleTokenCheck();
+    const makeRequest = () => {
+      return addClothing(values, jwt).then(({ data }) => {
+        setClothingItems([data, ...clothingItems]);
+        handleInputReset();
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   // JSX
@@ -25,7 +44,7 @@ function AddItemModal({ closePopup, activePopup, onAddItem, isLoading }) {
       title="New Garment"
       onCloseClick={closePopup}
       isOpen={activePopup === "add-clothes"}
-      onSubmit={handleSubmit}
+      onSubmit={handleAddItem}
     >
       <label htmlFor="add-clothes" className="popup__input-title">
         Name

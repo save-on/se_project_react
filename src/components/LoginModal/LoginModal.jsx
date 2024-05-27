@@ -1,23 +1,48 @@
-import { useState } from "react";
+import { useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 import { useForm } from "../../hooks/useForm";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { signIn } from "../../utils/auth";
+import { setToken } from "../../utils/token";
 
 const LoginModal = ({
-  handleLogin,
+  handleSubmit,
   onSignUpClick,
   onCloseClick,
   activePopup,
   isLoading,
 }) => {
-  const { values, handleChanges } = useForm({
+  const { setIsLoggedIn, setCurrentUser } = useContext(CurrentUserContext);
+  const { values, handleChanges, setValues } = useForm({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleInputReset = () => {
+    setValues({
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleSignIn = (e) => {
     e.preventDefault();
-    handleLogin(values);
+    const makeRequest = () => {
+      return signIn(values).then(({ token, name, avatar, _id }) => {
+        if (token) {
+          setToken(token);
+          setIsLoggedIn(true);
+          setCurrentUser({
+            name,
+            avatar,
+            _id,
+          });
+          handleInputReset();
+        }
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   return (
@@ -26,7 +51,7 @@ const LoginModal = ({
       buttonText={isLoading ? "Logging in..." : "Log in"}
       isOpen={activePopup === "sign-in"}
       onCloseClick={onCloseClick}
-      onSubmit={handleSubmit}
+      onSubmit={handleSignIn}
     >
       <label htmlFor="login-email" className="popup__input-title">
         Email

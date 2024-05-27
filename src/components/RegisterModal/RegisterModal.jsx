@@ -1,24 +1,56 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 import { useForm } from "../../hooks/useForm";
+import { handleTokenCheck, setToken } from "../../utils/token";
+import { signIn, signUp } from "../../utils/auth";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 const RegisterModal = ({
-  handleRegistration,
+  handleSubmit,
   onSignInClick,
   onCloseClick,
   activePopup,
   isLoading,
 }) => {
-  const { values, handleChanges } = useForm({
+  const { setCurrentUser, setIsLoggedIn } = useContext(CurrentUserContext);
+  const { values, handleChanges, setValues } = useForm({
     email: "",
     password: "",
     name: "",
     avatar: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleInputReset = () => {
+    setValues({
+      email: "",
+      password: "",
+      name: "",
+      avatar: "",
+    });
+  };
+
+  const handleSignUp = (e) => {
     e.preventDefault();
-    handleRegistration(values);
+    const makeRequest = () => {
+      return signUp(values).then(() => {
+        signIn(values)
+          .then(({ token, name, avatar, _id }) => {
+            if (token) {
+              setToken(token);
+              setCurrentUser({
+                name,
+                avatar,
+                _id,
+              });
+              setIsLoggedIn(true);
+              handleInputReset();
+            }
+          })
+          .catch(console.error);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   return (
@@ -26,7 +58,7 @@ const RegisterModal = ({
       title="Sign Up"
       buttonText={isLoading ? "Signing up..." : "Sign up"}
       isOpen={activePopup === "sign-up"}
-      onSubmit={handleSubmit}
+      onSubmit={handleSignUp}
       onCloseClick={onCloseClick}
     >
       <label htmlFor="register-email" className="popup__input-title">

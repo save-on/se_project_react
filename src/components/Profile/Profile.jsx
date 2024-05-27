@@ -6,7 +6,6 @@ import ClothesSection from "../ClothesSection/ClothesSection";
 // Component
 function Profile({
   handleCardClick,
-  clothingItems,
   handleAddClick,
   handleEditProfileClick,
   handleSignOut,
@@ -21,7 +20,6 @@ function Profile({
       />
       <ClothesSection
         handleCardClick={handleCardClick}
-        clothingItems={clothingItems}
         onAddClick={handleAddClick}
         handleCardLike={handleCardLike}
       />

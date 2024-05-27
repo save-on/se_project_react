@@ -4,15 +4,17 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./EditProfileModal.css";
 import { useForm } from "../../hooks/useForm";
+import { handleTokenCheck } from "../../utils/token";
+import { editUserInfo } from "../../utils/auth";
 
 // Component
 const EditProfileModal = ({
-  handleEditProfile,
+  handleSubmit,
   onCloseClick,
   activePopup,
   isLoading,
 }) => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   // Hook
   const { values, handleChanges, setValues } = useForm({
@@ -25,9 +27,19 @@ const EditProfileModal = ({
   }, [currentUser]);
 
   // Handles;
-  const handleSubmit = (e) => {
+  const handleEditProfile = (e) => {
     e.preventDefault();
-    handleEditProfile(values);
+    const jwt = handleTokenCheck();
+    const makeRequest = () => {
+      return editUserInfo(values, jwt).then(({ name, avatar, _id }) => {
+        setCurrentUser({
+          name,
+          avatar,
+          _id,
+        });
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   // JSX
@@ -37,7 +49,7 @@ const EditProfileModal = ({
       buttonText={isLoading ? "Saving..." : "Save Changes"}
       isOpen={activePopup === "edit-profile"}
       onCloseClick={onCloseClick}
-      onSubmit={handleSubmit}
+      onSubmit={handleEditProfile}
     >
       <label htmlFor="edit-name" className="popup__input-title">
         Name *

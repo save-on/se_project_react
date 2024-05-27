@@ -1,7 +1,7 @@
 // Imports
 import "./ItemCard.css";
 import unLiked from "../../assets/State=Default.png";
-import Liked from "../../assets/State=Liked.png";
+import liked from "../../assets/State=Liked.png";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
@@ -26,7 +26,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
 
   // JSX
   return (
-    <li className="item-card__card" key={item._id}>
+    <li className="item-card__card">
       <img
         className="item-card__card-image"
         onClick={handleCardClick}
@@ -36,7 +36,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
       <div className="item-card__title-container">
         <p className="item-card__card-text">{item.name}</p>
         <img
-          src={isLiked ? Liked : unLiked}
+          src={isLiked ? liked : unLiked}
           alt="like button"
           className={likeBtnClassName}
           onClick={handleCardLike}
