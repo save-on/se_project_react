@@ -8,6 +8,7 @@ function DeleteConfirmationModal({
   title,
   onCloseClick,
   onDelete,
+  isLoading,
 }) {
   // Handles
   const handleDelete = () => {
@@ -33,7 +34,7 @@ function DeleteConfirmationModal({
           className="popup__confirmation-button"
           onClick={handleDelete}
         >
-          Yes, delete item
+          {isLoading ? "Deleting..." : "Yes, delete item"}
         </button>
         <button
           type="button"

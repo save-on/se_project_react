@@ -2,43 +2,26 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./AddItemModal.css";
+import { useForm } from "../../hooks/useForm";
 
 // Component
-function AddItemModal({ closePopup, activePopup, onAddItem }) {
+function AddItemModal({ closePopup, activePopup, onAddItem, isLoading }) {
   // Hooks
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [weather, setWeather] = useState("");
-
-  // Functions
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleImageUrlChange = (e) => {
-    setImageUrl(e.target.value);
-  };
-
-  const handleWeatherChange = (e) => {
-    setWeather(e.target.value);
-  };
+  const { values, handleChanges } = useForm({
+    imageUrl: "",
+    weather: "",
+    name: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather });
-    resetInputs();
-  };
-
-  const resetInputs = () => {
-    setName("");
-    setImageUrl("");
-    setWeather("");
+    onAddItem(values);
   };
 
   // JSX
   return (
     <ModalWithForm
-      buttonText="Add Garment"
+      buttonText={isLoading ? "Adding..." : "Add garment"}
       title="New Garment"
       onCloseClick={closePopup}
       isOpen={activePopup === "add-clothes"}
@@ -51,8 +34,9 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
           id="add-clothes"
           className="popup__input popup__input_type_add-clothes"
           placeholder="Name"
-          value={name}
-          onChange={handleNameChange}
+          name="name"
+          value={values.name}
+          onChange={handleChanges}
           minLength="1"
           maxLength="30"
           required
@@ -65,8 +49,9 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
           id="imageUrl"
           className="popup__input popup__input_type_clothes-link"
           placeholder="Image Url"
-          value={imageUrl}
-          onChange={handleImageUrlChange}
+          name="imageUrl"
+          value={values.imageUrl}
+          onChange={handleChanges}
           required
         />
       </label>
@@ -80,9 +65,9 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
             id="hot"
             type="radio"
             value="hot"
-            checked={weather === "hot"}
-            name="weather-type"
-            onChange={handleWeatherChange}
+            checked={values.weather === "hot"}
+            name="weather"
+            onChange={handleChanges}
           />
           Hot
         </label>
@@ -92,9 +77,9 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
             id="warm"
             type="radio"
             value="warm"
-            checked={weather === "warm"}
-            name="weather-type"
-            onChange={handleWeatherChange}
+            checked={values.weather === "warm"}
+            name="weather"
+            onChange={handleChanges}
           />
           Warm
         </label>
@@ -104,9 +89,9 @@ function AddItemModal({ closePopup, activePopup, onAddItem }) {
             id="cold"
             type="radio"
             value="cold"
-            checked={weather === "cold"}
-            name="weather-type"
-            onChange={handleWeatherChange}
+            checked={values.weather === "cold"}
+            name="weather"
+            onChange={handleChanges}
           />
           Cold
         </label>

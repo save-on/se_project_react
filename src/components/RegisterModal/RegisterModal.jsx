@@ -1,47 +1,30 @@
-import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
+import { useForm } from "../../hooks/useForm";
 
 const RegisterModal = ({
   handleRegistration,
   onSignInClick,
   onCloseClick,
   activePopup,
+  isLoading,
 }) => {
-  const [data, setData] = useState({
+  const { values, handleChanges } = useForm({
     email: "",
     password: "",
     name: "",
     avatar: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleResetInputs = () => {
-    setData({
-      email: "",
-      password: "",
-      name: "",
-      avatar: "",
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration(data);
-    handleResetInputs();
+    handleRegistration(values);
   };
 
   return (
     <ModalWithForm
       title="Sign Up"
-      buttonText="Sign Up"
+      buttonText={isLoading ? "Signing up..." : "Sign up"}
       isOpen={activePopup === "sign-up"}
       onSubmit={handleSubmit}
       onCloseClick={onCloseClick}
@@ -54,8 +37,8 @@ const RegisterModal = ({
           name="email"
           className="popup__input popup__input_type_register-email"
           placeholder="Email"
-          value={data.email}
-          onChange={handleChange}
+          value={values.email}
+          onChange={handleChanges}
           required
         />
       </label>
@@ -67,8 +50,8 @@ const RegisterModal = ({
           name="password"
           className="popup__input popup__input_type_register-password"
           placeholder="Password"
-          value={data.password}
-          onChange={handleChange}
+          value={values.password}
+          onChange={handleChanges}
           required
         />
       </label>
@@ -80,8 +63,8 @@ const RegisterModal = ({
           name="name"
           className="popup__input popup__input_type_register-name"
           placeholder="Name"
-          value={data.name}
-          onChange={handleChange}
+          value={values.name}
+          onChange={handleChanges}
           required
         />
       </label>
@@ -93,8 +76,8 @@ const RegisterModal = ({
           name="avatar"
           className="popup__input popup__input_type_register-avatar"
           placeholder="Avatar URL"
-          value={data.avatar}
-          onChange={handleChange}
+          value={values.avatar}
+          onChange={handleChanges}
           required
         />
       </label>

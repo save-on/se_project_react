@@ -1,42 +1,29 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
+import { useForm } from "../../hooks/useForm";
 
 const LoginModal = ({
   handleLogin,
   onSignUpClick,
   onCloseClick,
   activePopup,
+  isLoading,
 }) => {
-  const [data, setData] = useState({
+  const { values, handleChanges } = useForm({
     email: "",
     password: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleResetInputs = () => {
-    setData({
-      email: "",
-      password: "",
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(data);
+    handleLogin(values);
   };
 
   return (
     <ModalWithForm
       title="Log In"
-      buttonText="Log In"
+      buttonText={isLoading ? "Logging in..." : "Log in"}
       isOpen={activePopup === "sign-in"}
       onCloseClick={onCloseClick}
       onSubmit={handleSubmit}
@@ -49,8 +36,8 @@ const LoginModal = ({
           className="popup__input popup__input_type_login-email"
           placeholder="Email"
           name="email"
-          value={data.email}
-          onChange={handleChange}
+          value={values.email}
+          onChange={handleChanges}
           required
         />
       </label>
@@ -62,8 +49,8 @@ const LoginModal = ({
           className="popup__input popup__input_type_login-password"
           placeholder="Password"
           name="password"
-          value={data.password}
-          onChange={handleChange}
+          value={values.password}
+          onChange={handleChanges}
           required
         />
       </label>

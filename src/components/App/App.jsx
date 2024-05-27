@@ -47,6 +47,7 @@ function App() {
     name: "",
     _id: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -134,16 +135,19 @@ function App() {
 
   const handleAddItemSubmit = (item) => {
     const jwt = handleTokenCheck();
+    setIsLoading(true);
     addClothing(item, jwt)
       .then((res) => {
         setClothingItems([res.data, ...clothingItems]);
         closePopup();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleDelete = (card) => {
     const jwt = handleTokenCheck();
+    setIsLoading(true);
     deleteClothing(card._id, jwt)
       .then(() => {
         const newClothingItems = clothingItems.filter(
@@ -152,10 +156,12 @@ function App() {
         setClothingItems(newClothingItems);
         closePopup();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleRegistration = (data) => {
+    setIsLoading(true);
     signUp(data)
       .then(() => {
         signIn(data)
@@ -173,10 +179,12 @@ function App() {
           })
           .catch(console.error);
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleLogin = (data) => {
+    setIsLoading(true);
     signIn(data)
       .then(({ token, name, avatar, _id }) => {
         if (token) {
@@ -190,7 +198,8 @@ function App() {
           closePopup();
         }
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleSignOut = () => {
@@ -201,6 +210,7 @@ function App() {
 
   const handleEditProfile = (data) => {
     const jwt = handleTokenCheck();
+    setIsLoading(true);
     editUserInfo(data, jwt)
       .then(({ name, avatar, _id }) => {
         setCurrentUser({
@@ -210,7 +220,8 @@ function App() {
         });
         closePopup();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleCardLike = ({ _id }, isLiked) => {
@@ -288,6 +299,7 @@ function App() {
             closePopup={closePopup}
             activePopup={activePopup}
             onAddItem={handleAddItemSubmit}
+            isLoading={isLoading}
           />
           <ItemModal
             card={selectedCard}
@@ -302,23 +314,27 @@ function App() {
             title="confirmation"
             onCloseClick={closePopup}
             onDelete={handleDelete}
+            isLoading={isLoading}
           />
           <RegisterModal
             handleRegistration={handleRegistration}
             onSignInClick={handleSignInClick}
             onCloseClick={closePopup}
             activePopup={activePopup}
+            isLoading={isLoading}
           />
           <LoginModal
             handleLogin={handleLogin}
             onSignUpClick={handleSignUpClick}
             onCloseClick={closePopup}
             activePopup={activePopup}
+            isLoading={isLoading}
           />
           <EditProfileModal
             handleEditProfile={handleEditProfile}
             onCloseClick={closePopup}
             activePopup={activePopup}
+            isLoading={isLoading}
           />
         </CurrentUserContext.Provider>
       </CurrentTemperatureUnitContext.Provider>

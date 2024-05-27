@@ -1,37 +1,40 @@
 // Imports
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./EditProfileModal.css";
+import { useForm } from "../../hooks/useForm";
 
 // Component
-const EditProfileModal = ({ handleEditProfile, onCloseClick, activePopup }) => {
+const EditProfileModal = ({
+  handleEditProfile,
+  onCloseClick,
+  activePopup,
+  isLoading,
+}) => {
   const { currentUser } = useContext(CurrentUserContext);
-  const [data, setData] = useState({ name: "", avatar: "" });
+
+  // Hook
+  const { values, handleChanges, setValues } = useForm({
+    name: "",
+    avatar: "",
+  });
 
   useEffect(() => {
-    setData(currentUser);
+    setValues(currentUser);
   }, [currentUser]);
 
   // Handles;
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleEditProfile(data);
+    handleEditProfile(values);
   };
 
   // JSX
   return (
     <ModalWithForm
       title="Change profile data"
-      buttonText="Save changes"
+      buttonText={isLoading ? "Saving..." : "Save Changes"}
       isOpen={activePopup === "edit-profile"}
       onCloseClick={onCloseClick}
       onSubmit={handleSubmit}
@@ -44,8 +47,8 @@ const EditProfileModal = ({ handleEditProfile, onCloseClick, activePopup }) => {
           className="popup__input popup__input_type_edit-name"
           placeholder="Name"
           name="name"
-          value={data.name}
-          onChange={handleChange}
+          value={values.name}
+          onChange={handleChanges}
           required
         />
       </label>
@@ -57,8 +60,8 @@ const EditProfileModal = ({ handleEditProfile, onCloseClick, activePopup }) => {
           className="popup__input popup__input_type_edit-avatar"
           placeholder="Avatar URL"
           name="avatar"
-          value={data.avatar}
-          onChange={handleChange}
+          value={values.avatar}
+          onChange={handleChanges}
           required
         />
       </label>
