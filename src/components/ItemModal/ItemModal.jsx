@@ -12,12 +12,14 @@ function ItemModal({
   handleConfirmationClick,
 }) {
   // Hooks
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   // Constants
   const isOwn = card.owner === currentUser._id;
 
   const itemDeleteButtonClassName = `popup__item-delete ${
-    isOwn ? "popup__item-delete_visible" : "popup__item-delete_hidden"
+    isOwn && isLoggedIn
+      ? "popup__item-delete_visible"
+      : "popup__item-delete_hidden"
   }`;
   // Handles
   const handleOnClick = (e) => {
