@@ -270,8 +270,3 @@ function App() {
 }
 
 export default App;
-
-/*
-  Todo
-    - You left off on the reset portion of the review
-*/
