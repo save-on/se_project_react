@@ -78,4 +78,7 @@ export const coordinates = {
 };
 
 export const APIkey = "473e1aae1cd5b3b930ac2d9222bc3f3e";
-export const baseUrl = "http://localhost:3001";
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwr.hec.to"
+    : "http://localhost:3001";

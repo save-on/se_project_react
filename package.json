@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://save-on.github.io/se_project_react/",
+  "homepage": "https://wtwr.hec.to",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
